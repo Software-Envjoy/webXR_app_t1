@@ -76,14 +76,14 @@ body.ar #info {
 }
 
 #info span {
-  background-color: rgba(40, 40, 40, 0.4);
+  background-color: rgba(226, 8, 8, 0.4);
   padding: 0.4em 0.6em;
   width: 80vw;
   border-radius: 0.1em;
 }
 
 #stabilization {
-  background-image: url(../assets/stabilization.gif);
+  background-image: url(assets/stabilization.gif);
   background-size: contain;
   background-repeat: no-repeat;
   width: 400px;
