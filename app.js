@@ -162,6 +162,9 @@ class App {
       context: this.gl
     });
     this.renderer.autoClear = false;
+    // Shadows    
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     // Initialize our demo scene.
     // Following create a cubes scene
@@ -181,9 +184,13 @@ class App {
   // Method to add a flower in pointer position
   onSelect = () => {
     if (window.sunflower) {
-      const clone = window.sunflower.clone();
+      const clone = window.sunflower.clone();      
       clone.position.copy(this.reticle.position);
       this.scene.add(clone);
+
+      // Move down the shadow mesh from Y=10.000 to the position of the flower      
+      const shadowMesh = this.scene.children.find(c => c.name === "shadowMesh");      
+      shadowMesh.position.y = clone.position.y;
     }
   }
 
