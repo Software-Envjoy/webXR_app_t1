@@ -39,9 +39,14 @@ class App {
       // Initialize a WebXR session using "immersive-ar".
       ////* this.xrSession = /* TODO */;
       this.xrSession = await navigator.xr.requestSession("immersive-ar", 
-        {requiredFeatures: ["hit-test", "down-overlay"], 
-        domOverlay: {root: document.body}
+      {
+        requiredFeatures: ["hit-test", "dom-overlay"],
+        domOverlay: { root: document.body }
       });
+
+////*        {requiredFeatures: ["hit-test", "down-overlay"], 
+////*        domOverlay: {root: document.body}
+////*      });
 
       // Create the canvas that will contain our camera's background and our virtual scene.
       this.createXRCanvas();
@@ -156,8 +161,10 @@ class App {
     this.renderer.autoClear = false;
 
     // Initialize our demo scene.
-    ////* this.scene = DemoUtils.createCubeScene();
-    this.scene = DemoUtils.createListScene();
+    // Following create a cubes scene
+    // this.scene = DemoUtils.createCubeScene();
+    // Following create a 
+    this.scene = DemoUtils.createLitScene();
     this.reticle = new Reticle();
     this.scene.add(this.reticle);
 
