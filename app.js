@@ -41,7 +41,8 @@ class App {
 
     loader.load(
       // URL del model
-      'assets/Bobtail_Squid.usdz',
+      ////* 'assets/Bobtail_Squid.usdz',
+      'assets/bobtail_squid.glb',
 
       // Funció que es crida quan el model s'ha carregat
       (gltf) => {
