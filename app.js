@@ -31,6 +31,36 @@
  * and handle rendering on every frame.
  */
 class App {
+
+  /**
+   * TEST SEPIA
+   */
+  constructor() {
+    // Carrega el model 3D de la sepia
+    const loader = new THREE.GLTFLoader();
+
+    loader.load(
+      // URL del model
+      'assets/Bobtail_Squid.usdz',
+
+      // Funció que es crida quan el model s'ha carregat
+      (gltf) => {
+        window.bobtailSquid = gltf.scene;
+      },
+
+      // Funció que es crida mentre el model es carrega
+      (xhr) => {
+        console.log(`Model 3D carregant: ${xhr.loaded / xhr.total * 100}% carregat`);
+      },
+
+      // Funció que es crida si hi ha un error
+      (error) => {
+        console.log('Error carregant el model 3D:', error);
+      }
+    );
+  }
+
+
   /**
    * Run when the Start AR button is pressed.
    */
@@ -184,7 +214,12 @@ class App {
   // Method to add a flower in pointer position
   onSelect = () => {
     if (window.sunflower) {
-      const clone = window.sunflower.clone();      
+
+      ////* const clone = window.sunflower.clone();      
+      ////* clone.position.copy(this.reticle.position);
+      ////* this.scene.add(clone);
+
+      const clone = window.bobtailSquid.clone();      
       clone.position.copy(this.reticle.position);
       this.scene.add(clone);
 
