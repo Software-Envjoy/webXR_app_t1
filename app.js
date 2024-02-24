@@ -37,8 +37,8 @@ class App {
   activateXR = async () => {
     try {
       // Initialize a WebXR session using "immersive-ar".
-      ////* this.xrSession = /* TODO */;
-      this.xrSession = await navigator.xr.requestSession("inmersive-ar");
+      ////* this.xrSession = /* TODO */;      
+      this.xrSession = await navigator.xr.requestSession("immersive-ar");
 
       // Create the canvas that will contain our camera's background and our virtual scene.
       this.createXRCanvas();
@@ -75,8 +75,8 @@ class App {
     this.setupThreeJs();
 
     // Setup an XRReferenceSpace using the "local" coordinate system.
-    ////* this.localReferenceSpace = /* TODO */;
-    this.localReferenceSpace = await this.xrSession.requestReferenceSapce("local");
+    ////* this.localReferenceSpace = /* TODO */;    
+    this.localReferenceSpace = await this.xrSession.requestReferenceSpace("local");
 
     // Start a rendering loop using this.onXRFrame.
     this.xrSession.requestAnimationFrame(this.onXRFrame);
@@ -88,13 +88,13 @@ class App {
    */
   onXRFrame = (time, frame) => {
     /** TODO draw the application */
+    // Queue up the next draw request.
     this.xrSession.requestAnimationFrame(this.onXRFrame);
-
+    
     // Bind the graphics framebuffer to the baseLayer's framebuffer.
     const framebuffer = this.xrSession.renderState.baseLayer.framebuffer;
     this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, framebuffer);
     this.renderer.setFramebuffer(framebuffer);
-
 
     // Retrieve the pose of the device.
     // XRFrame.getViewerPose can return null while the session attempts to establish tracking.
