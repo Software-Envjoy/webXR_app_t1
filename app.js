@@ -37,8 +37,11 @@ class App {
   activateXR = async () => {
     try {
       // Initialize a WebXR session using "immersive-ar".
-      ////* this.xrSession = /* TODO */;      
-      this.xrSession = await navigator.xr.requestSession("immersive-ar");
+      ////* this.xrSession = /* TODO */;
+      this.xrSession = await navigator.xr.requestSession("immersive-ar", 
+        {requiredFeatures: ["hit-test", "down-overlay"], 
+        domOverlay: {root: document.body}
+      });
 
       // Create the canvas that will contain our camera's background and our virtual scene.
       this.createXRCanvas();
@@ -78,6 +81,11 @@ class App {
     ////* this.localReferenceSpace = /* TODO */;    
     this.localReferenceSpace = await this.xrSession.requestReferenceSpace("local");
 
+    // Create another XRReferenceSpace that has the viewer as the origin.
+    this.viewerSpace = await this.xrSession.requestReferenceSpace("viewer");
+    // Perform hit testing using the viewer as origin.
+    this.hitTestSource = await this.xrSession.requestHitTestSource({ space: this.viewerSpace });
+
     // Start a rendering loop using this.onXRFrame.
     this.xrSession.requestAnimationFrame(this.onXRFrame);
   }
@@ -111,6 +119,22 @@ class App {
       this.camera.projectionMatrix.fromArray(view.projectionMatrix);
       this.camera.updateMatrixWorld(true);
 
+
+      const hitTestResults = frame.getHitTestResults(this.hitTestSource);
+
+      if (!this.stabilized && hitTestResults.length > 0) {
+        this.stabilized = true;
+        document.body.classList.add("stabilized");
+      }
+      if (hitTestResults.length > 0) {
+        const hitPose = hitTestResults[0].getPose(this.localReferenceSpace);
+
+        // update the reticle position
+        this.reticle.visible = true;
+        this.reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z)
+        this.reticle.updateMatrixWorld(true);
+      }
+
       // Render the scene with THREE.WebGLRenderer.
       this.renderer.render(this.scene, this.camera);
     }
@@ -132,7 +156,10 @@ class App {
     this.renderer.autoClear = false;
 
     // Initialize our demo scene.
-    this.scene = DemoUtils.createCubeScene();
+    ////* this.scene = DemoUtils.createCubeScene();
+    this.scene = DemoUtils.createListScene();
+    this.reticle = new Reticle();
+    this.scene.add(this.reticle);
 
     // We'll update the camera matrices directly from API, so
     // disable matrix auto updates so three.js doesn't attempt
