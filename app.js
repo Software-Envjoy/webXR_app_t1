@@ -93,6 +93,9 @@ class App {
 
     // Start a rendering loop using this.onXRFrame.
     this.xrSession.requestAnimationFrame(this.onXRFrame);
+
+    // Lister for touch screen
+    this.xrSession.addEventListener("select", this.onSelect);
   }
 
   /**
@@ -174,6 +177,16 @@ class App {
     this.camera = new THREE.PerspectiveCamera();
     this.camera.matrixAutoUpdate = false;
   }
+
+  // Method to add a flower in pointer position
+  onSelect = () => {
+    if (window.sunflower) {
+      const clone = window.sunflower.clone();
+      clone.position.copy(this.reticle.position);
+      this.scene.add(clone);
+    }
+  }
+
 };
 
 window.app = new App();
