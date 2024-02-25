@@ -222,7 +222,8 @@ class App {
 
       const clone = window.bobtailSquid.clone();
 
-      clone.scale.set(0.1, 0.1, 0.1);
+      ////* clone.scale.set(0.1, 0.1, 0.1);
+      clone.scale.set(0.25, 0.25, 0.25);
 
       clone.position.copy(this.reticle.position);
       this.scene.add(clone);
