@@ -224,9 +224,9 @@ class App {
 
       ////* clone.scale.set(0.1, 0.1, 0.1);
       ////* clone.scale.set(0.25, 0.25, 0.25);
-      clone.transformNodes[0].scaling.x = 0.25;
-      clone.transformNodes[0].scaling.y = 0.25;
-      clone.transformNodes[0].scaling.z = 0.25;
+      clone.transformNodes[0].scaling.x *= 0.25;
+      clone.transformNodes[0].scaling.y *= 0.25;
+      clone.transformNodes[0].scaling.z *= 0.25;
 
       clone.position.copy(this.reticle.position);
       this.scene.add(clone);
