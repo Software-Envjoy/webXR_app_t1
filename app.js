@@ -46,7 +46,10 @@ class App {
 
       // Funció que es crida quan el model s'ha carregat
       (gltf) => {
-        gltf.scene.scale.set(0.1, 0.1, 0.1);
+        gltf.transformNodes[0].scaling.x *= 0.5;
+        gltf.transformNodes[0].scaling.y *= 0.5;
+        gltf.transformNodes[0].scaling.z *= 0.5;
+
         window.bobtailSquid = gltf.scene;
       },
 
