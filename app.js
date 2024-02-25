@@ -46,6 +46,7 @@ class App {
 
       // Funció que es crida quan el model s'ha carregat
       (gltf) => {
+        gltf.scene.scale.set(0.1, 0.1, 0.1);
         window.bobtailSquid = gltf.scene;
       },
 
@@ -223,7 +224,7 @@ class App {
       const clone = window.bobtailSquid.clone();
 
       ////* clone.scale.set(0.1, 0.1, 0.1);
-      clone.scale.set(0.25, 0.25, 0.25);
+      ////* clone.scale.set(0.25, 0.25, 0.25);
 
       clone.position.copy(this.reticle.position);
       this.scene.add(clone);
