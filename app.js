@@ -46,10 +46,6 @@ class App {
 
       // Funció que es crida quan el model s'ha carregat
       (gltf) => {
-        gltf.transformNodes[0].scaling.x *= 0.5;
-        gltf.transformNodes[0].scaling.y *= 0.5;
-        gltf.transformNodes[0].scaling.z *= 0.5;
-
         window.bobtailSquid = gltf.scene;
       },
 
@@ -220,7 +216,7 @@ class App {
   onSelect = () => {
     if (window.sunflower) {
 
-      ////* const clone = window.sunflower.clone();      
+      ////* const clone = window.sunflower.clone();
       ////* clone.position.copy(this.reticle.position);
       ////* this.scene.add(clone);
 
@@ -228,6 +224,9 @@ class App {
 
       ////* clone.scale.set(0.1, 0.1, 0.1);
       ////* clone.scale.set(0.25, 0.25, 0.25);
+      clone.transformNodes[0].scaling.x = 0.25;
+      clone.transformNodes[0].scaling.y = 0.25;
+      clone.transformNodes[0].scaling.z = 0.25;
 
       clone.position.copy(this.reticle.position);
       this.scene.add(clone);
